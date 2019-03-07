@@ -1,22 +1,32 @@
 package org.wsk.autoTestMock.common;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
@@ -110,6 +120,7 @@ public class HttpClientTool {
 		try {
 			String result = null;
 			post.setEntity(new UrlEncodedFormEntity(pairs, CHARSET));
+			
 			response = httpClient.execute(post);
 			if (response.getStatusLine().getStatusCode() != 200) {
 				post.abort();
@@ -142,6 +153,83 @@ public class HttpClientTool {
 		return null;
 	}
 	
-	
+	/**
+	 * 
+	 * 
+	 */
 
+	public static HttpResponse doPostWithFile(String url, Map<String, String> params,List<File> files, Map<String, String> headers, String encode){
+		HttpPost post = new HttpPost(url);
+		CloseableHttpResponse response = null;
+		if(headers!=null){
+			for (Map.Entry<String, String> entry : headers.entrySet()) {
+				post.setHeader(entry.getKey(), entry.getValue());
+			}
+		}
+		 MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+		 multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);  
+		 multipartEntityBuilder.setCharset(Charset.forName(encode)); 
+		 ContentType contentType = ContentType.create("text/plain",Charset.forName(encode));//解决中文乱码  
+        if (params != null && params.size() > 0) {  
+            Set<String> keySet = params.keySet();  
+            for (String key : keySet) {  
+            	multipartEntityBuilder.addTextBody(key, params.get(key),contentType);  
+            }  
+        }  
+        //二进制参数  
+        if (files != null && files.size() > 0) {  
+            for (File file : files) {  
+            	multipartEntityBuilder.addBinaryBody("file", file);  
+            }  
+        }  
+        post.setEntity(multipartEntityBuilder.build());
+        try {
+			CloseableHttpResponse respones = httpClient.execute(post);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				response.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}  
+        
+        try {
+			httpClient.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return response;
+	}
+	
+	
+	
+	
+	/**
+	 * 
+	 * 
+	 */
+	public static HttpResponse doDelete(String url, Map<String, String> headers, String encode){
+		HttpDelete delete = new HttpDelete();
+		HttpResponse response = null;
+		if(headers!=null&&headers.size()>0){
+			for (Entry<String, String> entry : headers.entrySet()) {
+				delete.setHeader(entry.getKey(),entry.getValue());
+			}
+		}
+		try {
+			response = httpClient.execute(delete);
+			String content = EntityUtils.toString(response.getEntity(), CHARSET);
+			return response;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }
