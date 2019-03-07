@@ -1,17 +1,21 @@
 package org.wsk.autoTestMock.common;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
@@ -28,6 +32,10 @@ public class HttpClientTool {
 		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
 
 	}
+
+	// static {
+	// HttpClientTool.createSSLClientDefault();
+	// }
 
 	/**
 	 * get请求
@@ -52,7 +60,7 @@ public class HttpClientTool {
 			} else {
 				ArrayList<NameValuePair> list = new ArrayList<NameValuePair>(params.size());
 				for (Map.Entry<String, String> entry : params.entrySet()) {
-						list.add(new BasicNameValuePair(entry.getKey(), (String) entry.getValue()));
+					list.add(new BasicNameValuePair(entry.getKey(), (String) entry.getValue()));
 				}
 				uriWithParams = new URIBuilder(url).addParameters(list).build();
 			}
@@ -67,10 +75,73 @@ public class HttpClientTool {
 				}
 
 			}
-		} catch (URISyntaxException| IOException ex) {
+		} catch (URISyntaxException | IOException ex) {
 			logger.error(ex);
 			throw new RuntimeException(ex.getMessage());
 		}
 		return null;
 	}
+
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param url
+	 * @param params
+	 * @param charset
+	 * @return
+	 */
+	public static String doPost(String url, Map<String, String> params, String charset) {
+		List<NameValuePair> pairs = null;
+		CloseableHttpResponse response = null;
+		if (url == null || url == "") {
+			return null;
+		}
+		if (params != null && !params.isEmpty()) {
+			pairs = new ArrayList<NameValuePair>(params.size());
+			for (Map.Entry<String, String> entry : params.entrySet()) {
+				if (entry.getValue() != null) {
+					pairs.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
+				}
+			}
+
+		}
+		HttpPost post = new HttpPost(url);
+		try {
+			String result = null;
+			post.setEntity(new UrlEncodedFormEntity(pairs, CHARSET));
+			response = httpClient.execute(post);
+			if (response.getStatusLine().getStatusCode() != 200) {
+				post.abort();
+				throw new RuntimeException(
+						"HttpClinet Error status code:" + response.getStatusLine().getReasonPhrase());
+			}
+			HttpEntity entity = response.getEntity();
+			if (entity != null) {
+				result = EntityUtils.toString(entity, CHARSET);
+			}
+			EntityUtils.consume(entity);
+			return result;
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			if (response != null) {
+				try {
+					response.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return null;
+	}
+	
+	
+
 }
