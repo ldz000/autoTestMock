@@ -28,3 +28,33 @@ DEBUG:PooledDataSource forcefully closed/removed all connections.
 DEBUG:PooledDataSource forcefully closed/removed all connections.
 2019-03-12 00:25:46 上午 [Thread: main][ Class:org.apache.ibatis.datasource.pooled.PooledDataSource >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
 DEBUG:PooledDataSource forcefully closed/removed all connections.
+2019-03-12 23:27:30 下午 [Thread: main][ Class:org.mybatis.generator.internal.db.DatabaseIntrospector >> Method: org.mybatis.generator.logging.Log4jImpl.debug(Log4jImpl.java:46) ]
+DEBUG:Retrieving column information for table "u_test"
+2019-03-12 23:27:30 下午 [Thread: main][ Class:org.mybatis.generator.internal.db.DatabaseIntrospector >> Method: org.mybatis.generator.logging.Log4jImpl.debug(Log4jImpl.java:46) ]
+DEBUG:Found column "id", data type 4, in table "test..u_test"
+2019-03-12 23:27:30 下午 [Thread: main][ Class:org.mybatis.generator.internal.db.DatabaseIntrospector >> Method: org.mybatis.generator.logging.Log4jImpl.debug(Log4jImpl.java:46) ]
+DEBUG:Found column "name", data type 12, in table "test..u_test"
+2019-03-12 23:27:30 下午 [Thread: main][ Class:org.mybatis.generator.internal.db.DatabaseIntrospector >> Method: org.mybatis.generator.logging.Log4jImpl.debug(Log4jImpl.java:46) ]
+DEBUG:Found column "age", data type 4, in table "test..u_test"
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.logging.LogFactory >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:Logging initialized using 'class org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl' adapter.
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.datasource.pooled.PooledDataSource >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:PooledDataSource forcefully closed/removed all connections.
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.datasource.pooled.PooledDataSource >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:PooledDataSource forcefully closed/removed all connections.
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.datasource.pooled.PooledDataSource >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:PooledDataSource forcefully closed/removed all connections.
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.datasource.pooled.PooledDataSource >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:PooledDataSource forcefully closed/removed all connections.
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.transaction.jdbc.JdbcTransaction >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:Opening JDBC Connection
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.datasource.pooled.PooledDataSource >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:Created connection 2061347276.
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.apache.ibatis.transaction.jdbc.JdbcTransaction >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:Setting autocommit to false on JDBC Connection [com.mysql.cj.jdbc.ConnectionImpl@7adda9cc]
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.wsk.autoTestMock.dao.UTestMapper.selectOneUser >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:==>  Preparing: select * from u_test where id = ? 
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.wsk.autoTestMock.dao.UTestMapper.selectOneUser >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:==> Parameters: 1(Integer)
+2019-03-12 23:41:44 下午 [Thread: main][ Class:org.wsk.autoTestMock.dao.UTestMapper.selectOneUser >> Method: org.apache.ibatis.logging.commons.JakartaCommonsLoggingImpl.debug(JakartaCommonsLoggingImpl.java:54) ]
+DEBUG:<==      Total: 1

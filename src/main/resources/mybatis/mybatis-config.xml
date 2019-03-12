@@ -20,6 +20,6 @@
 	
 	
 	<mappers>
-		<mapper resource="org/wsk/autoTestMock/dao/UserMapper.xml"/>
+		<mapper resource="org/wsk/autoTestMock/dao/UTestMapper.xml"/>
 	</mappers>
 </configuration>
