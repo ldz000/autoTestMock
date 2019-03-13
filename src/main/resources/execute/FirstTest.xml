@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="TestMybatiswithReport">
+	<test name="TestReport">
+		<classes>
+			<class name="org.wsk.autoTestMock.testcase.TestReport">
+				<methods>
+					<include name="test_1"></include>
+				</methods>
+			</class>
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.wsk.autoTestMock.common.ExtentTestNGIReporterListener"/>
+	</listeners>
+</suite>
+
+
+

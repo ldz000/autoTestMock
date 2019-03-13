@@ -1,4 +1,4 @@
-package org.wsk.autoTestMock.loadUrl;
+package org.wsk.autoTestMock.loadurl;
 
 import java.util.ResourceBundle;
 
