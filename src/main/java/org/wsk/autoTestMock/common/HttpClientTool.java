@@ -9,8 +9,8 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,10 +23,11 @@ import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.BasicCookieStore;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
@@ -37,15 +38,13 @@ public class HttpClientTool {
 	private static Logger logger = Logger.getLogger(HttpClientTool.class);
 	private static final CloseableHttpClient httpClient;
 	private static final String CHARSET = "UTF-8";
+	private static BasicCookieStore cookieStore = null;
 	static {
+		cookieStore = new BasicCookieStore();
 		RequestConfig config = RequestConfig.custom().setConnectTimeout(60000).setSocketTimeout(15000).build();
-		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).build();
+		httpClient = HttpClientBuilder.create().setDefaultRequestConfig(config).setDefaultCookieStore(cookieStore).build();
 
 	}
-
-	// static {
-	// HttpClientTool.createSSLClientDefault();
-	// }
 
 	/**
 	 * get请求
@@ -57,16 +56,18 @@ public class HttpClientTool {
 	 */
 
 	public static String doGet(String url, Map<String, String> params) {
+		System.out.println("doget方法被调用了");
 		URI uriWithParams = null;
 		String result = null;
 		CloseableHttpResponse response = null;
+		System.out.println("111111111111111111111111111111111111111111111111");
 		try {
 			if (url == "" || url == null) {
 				return null;
 			}
-
 			if (params == null || params.isEmpty()) {
 				uriWithParams = new URIBuilder(url).build();
+				System.out.println("no params bulid url"+ url);
 			} else {
 				ArrayList<NameValuePair> list = new ArrayList<NameValuePair>(params.size());
 				for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -76,10 +77,10 @@ public class HttpClientTool {
 			}
 			HttpGet get = new HttpGet(uriWithParams);
 			response = httpClient.execute(get);
-			System.out.println(get.getURI());
+			List<Cookie> list = cookieStore.getCookies();
+			System.out.println("cookie的长度为"+list.size()+"---------------------------------------------------------------------------------");
 			if (response.getStatusLine().getStatusCode() == 200) {
 				if (response.getEntity() != null) {
-
 					result = EntityUtils.toString(response.getEntity(), CHARSET);
 					response.close();
 				}

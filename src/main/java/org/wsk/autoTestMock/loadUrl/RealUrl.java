@@ -4,9 +4,9 @@ import java.util.ResourceBundle;
 
 public class RealUrl {
 	
-	static String getUrl(){
+	public static String getUrl(String path){
 		ResourceBundle bundle = ResourceBundle.getBundle("url.application");
-		String baseUrl = bundle.getString("testUrl");
-		return baseUrl;
+		String url = bundle.getString(path);
+		return url;
 	}
 }

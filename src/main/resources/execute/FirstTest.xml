@@ -4,9 +4,9 @@
 <suite name="TestMybatiswithReport">
 	<test name="TestReport">
 		<classes>
-			<class name="org.wsk.autoTestMock.testcase.TestReport">
+			<class name="org.wsk.autoTestMock.testcase.LoginTest">
 				<methods>
-					<include name="test_1"></include>
+					<include name="LoginTest"></include>
 				</methods>
 			</class>
 		</classes>

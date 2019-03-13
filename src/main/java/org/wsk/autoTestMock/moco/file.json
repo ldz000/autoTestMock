@@ -1,0 +1,22 @@
+[
+	{
+		"description":"模拟登录接口",
+		"request":{
+			"uri":"/demo",
+			"method": "get",
+			"queries":{
+				"name":"lww",
+				"age": "34"
+			}
+		},
+		"response":{
+			"headers": {
+        		"Content-Type":"text/html;charset=gbk"	
+			},
+			"cookies":{
+				"login" :"true"
+			},
+			"text": "login seccess"
+		}
+	}
+]
