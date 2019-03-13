@@ -28,3 +28,5 @@ ERROR:java.net.URISyntaxException: Illegal character in scheme name at index 0: 
 ERROR:java.net.URISyntaxException: Illegal character in scheme name at index 0: "http://127.0.0.1:8888/demo"
 2019-03-13 18:35:44 ÏÂÎç [Thread: main][ Class:org.wsk.autoTestMock.common.HttpClientTool >> Method: org.wsk.autoTestMock.common.HttpClientTool.doGet(HttpClientTool.java:93) ]
 ERROR:java.net.URISyntaxException: Illegal character in scheme name at index 0: "http://127.0.0.1:8888/demo"
+2019-03-13 23:23:12 ÏÂÎç [Thread: main][ Class:org.wsk.autoTestMock.common.HttpClientTool >> Method: org.wsk.autoTestMock.common.HttpClientTool.doGet(HttpClientTool.java:90) ]
+ERROR:java.net.URISyntaxException: Illegal character in scheme name at index 0: "http://127.0.0.1:8888/demo"
