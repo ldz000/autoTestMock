@@ -56,18 +56,15 @@ public class HttpClientTool {
 	 */
 
 	public static String doGet(String url, Map<String, String> params) {
-		System.out.println("doget方法被调用了");
 		URI uriWithParams = null;
 		String result = null;
 		CloseableHttpResponse response = null;
-		System.out.println("111111111111111111111111111111111111111111111111");
 		try {
 			if (url == "" || url == null) {
 				return null;
 			}
 			if (params == null || params.isEmpty()) {
 				uriWithParams = new URIBuilder(url).build();
-				System.out.println("no params bulid url"+ url);
 			} else {
 				ArrayList<NameValuePair> list = new ArrayList<NameValuePair>(params.size());
 				for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -78,7 +75,11 @@ public class HttpClientTool {
 			HttpGet get = new HttpGet(uriWithParams);
 			response = httpClient.execute(get);
 			List<Cookie> list = cookieStore.getCookies();
-			System.out.println("cookie的长度为"+list.size()+"---------------------------------------------------------------------------------");
+			for (Cookie cookie : list) {
+				System.out.println(cookie.getName()+cookie.getValue());
+			}
+			
+			System.out.println(list.size()+"cookie lenth ");
 			if (response.getStatusLine().getStatusCode() == 200) {
 				if (response.getEntity() != null) {
 					result = EntityUtils.toString(response.getEntity(), CHARSET);
@@ -90,14 +91,14 @@ public class HttpClientTool {
 			logger.error(ex);
 			throw new RuntimeException(ex.getMessage());
 		}
-		return null;
+		return result;
 	}
 
 	/**
 	 * 
 	 * 
 	 * 
-	 * @param url
+	 * @param urls
 	 * @param params
 	 * @param charset
 	 * @return
@@ -232,5 +233,7 @@ public class HttpClientTool {
 		}
 		return null;
 	}
+	
+	
 	
 }

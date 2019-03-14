@@ -1,17 +1,18 @@
 package org.wsk.autoTestMock.testcase;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.ParseException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -45,11 +46,32 @@ public class TestUrl {
 		list.add(param1);
 		list.add(param2);
 		String url = RealUrl.getUrl("baseUrl");
+		System.out.println(url);
 		URIBuilder builder = new URIBuilder(url);
 		builder.setParameters(list);
 		System.out.println(builder.build());
 	}
+	
 	@Test
-	public void test2() throws MalformedURLException{
+	public void test2() throws ParseException, UnsupportedEncodingException, IOException, URISyntaxException{
+		
+		LinkedList<NameValuePair> list = new LinkedList<NameValuePair>();
+		BasicNameValuePair pair = new BasicNameValuePair("name", "lww");
+		BasicNameValuePair pair2 = new BasicNameValuePair("age", "23");
+		list.add(pair);
+		list.add(pair2);
+		String str = EntityUtils.toString(new UrlEncodedFormEntity(list, "UTF-8"));
+		String url = RealUrl.getUrl("baseUrl");
+//		URIBuilder builder = new URIBuilder(url);
+		System.out.println("请求的get方法为"+url+str);
+		
+		
+	}
+	@Test
+	public void test3() throws URISyntaxException{
+		String url = RealUrl.getUrl("baseUrl");
+		String url2 = "http://127.0.0.1:8888/demo";
+		URIBuilder builder = new URIBuilder(url);
+		System.out.println(builder);
 	}
 }

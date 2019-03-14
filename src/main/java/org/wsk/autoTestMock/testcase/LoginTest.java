@@ -1,5 +1,6 @@
 package org.wsk.autoTestMock.testcase;
 
+import java.net.CookieStore;
 import java.util.HashMap;
 
 import org.testng.annotations.BeforeClass;
@@ -21,6 +22,11 @@ public class LoginTest {
 		map.put("name", "lww");
 		map.put("age", "34");
 		String result = HttpClientTool.doGet(url, map);
-		
 	}
+	
+	
+	
+	
+	
+	
 }
